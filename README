@@ -30,10 +30,10 @@ You can simplify jquery loading by defining helper in app/helpers/application_he
 or even 
 
   def javascript_require_jquery 
-      content_for :script do
-          once(:load_jquery) {
+      once(:load_jquery) do
+          content_for :script do
               javascript_include_tag 'jquery'
-          }
+          end
       end
   end
 
