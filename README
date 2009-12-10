@@ -1,0 +1,43 @@
+Once
+====
+
+Imagine situation where you have to call the code in many layouts/partials/views and code must be executed only once. 
+Can't ? :), see example
+
+Example
+=======
+
+You need to load jquery (or any other javascript library) in two different partials ('_pagination.haml' and '_image_gallery.haml')
+You can include
+    =javascript_include_tag 'jquery'
+in partials. If both are rendered on the page there will be duplication of 
+    <script src="/javascripts/jquery.js?XXX" type="text/javascript"></script>
+
+The solution is "Once" :)
+Instead of 
+    =javascript_include_tag 'jquery'
+You write
+    =once :load_jquery { javascript_include_tag 'jquery' }
+
+You can simplify jquery loading by defining helper in app/helpers/application_helper.erb
+
+  def javascript_include_jquery 
+      once(:load_jquery) {
+          javascript_include_tag 'jquery.min'
+      }
+  end
+
+or even 
+
+  def javascript_require_jquery 
+      content_for :script do
+          once(:load_jquery) {
+              javascript_include_tag 'jquery'
+          }
+      end
+  end
+
+
+
+
+Copyright (c) 2009 Olexiy Zamkoviy, released under the MIT license
