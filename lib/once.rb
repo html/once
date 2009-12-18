@@ -1,4 +1,13 @@
 # Once
+
+class ActionController::Base
+  before_filter :clear_once_actions
+
+  def clear_once_actions
+    ActionView::Helpers::Once::clear_actions
+  end
+end
+
 module ActionView
   module Helpers
     class Once
@@ -18,6 +27,10 @@ module ActionView
 
       def self.done?(name)
         @@actions[name]
+      end
+
+      def self.clear_actions
+        @@actions = {}
       end
     end
 
