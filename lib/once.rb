@@ -22,7 +22,7 @@ module ActionView
     end
 
     def once(name, &block)
-      Once::do(name){ yield }
+      Once::do(name, &block)
     end
 
     def once_done?(name)
