@@ -16,7 +16,12 @@ module ActionView
       def self.do(name, &block)
         if !self.done?(name)
           self.done(name)
-          return yield
+          if Rails::VERSION::MAJOR == 3
+            yield 
+            nil
+          else
+            return yield
+          end
         end
         nil
       end
